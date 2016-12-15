@@ -35,11 +35,11 @@
   
   statusLayoutManager.showContent();  显示你的内容view
   
-  显示空数据view
-  statusLayoutManager.showEmptyData();
+  
+  statusLayoutManager.showEmptyData();  显示空数据view
   
-  显示error view
-  statusLayoutManager.showError();
+  
+  statusLayoutManager.showError();  显示error view
   
-  显示网络异常view
-  statusLayoutManager.showNetWorkError();
+ 
+  statusLayoutManager.showNetWorkError();   显示网络异常view
