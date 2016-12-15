@@ -19,10 +19,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initToolBar();
         LinearLayout mainLinearLayout = (LinearLayout) findViewById(R.id.main_rl);
+
         statusLayoutManager = StatusLayoutManager.newBuilder(this)
                 .contentView(R.layout.activity_content)
                 .emptyDataView(R.layout.activity_emptydata)
-                .errorView(R.layout.activity_error)
+                //.errorView(R.layout.activity_error)
                 .loadingView(R.layout.activity_loading)
                 .netWorkErrorView(R.layout.activity_networkerror)
                 .build();

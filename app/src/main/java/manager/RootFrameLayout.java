@@ -105,24 +105,24 @@ public class RootFrameLayout extends FrameLayout {
      *  显示空数据
      */
     public void showEmptyData() {
-        inflateLayout(LAYOUT_EMPTYDATA);
-        showHideView(LAYOUT_EMPTYDATA);
+        if(inflateLayout(LAYOUT_EMPTYDATA))
+           showHideView(LAYOUT_EMPTYDATA);
     }
 
     /**
      *  显示网络异常
      */
     public void showNetWorkError() {
-        inflateLayout(LAYOUT_NETWORKERROR);
-        showHideView(LAYOUT_NETWORKERROR);
+        if(inflateLayout(LAYOUT_NETWORKERROR))
+           showHideView(LAYOUT_NETWORKERROR);
     }
 
     /**
      *  显示异常
      */
     public void showError() {
-        inflateLayout(LAYOUT_ERROR);
-        showHideView(LAYOUT_ERROR);
+        if(inflateLayout(LAYOUT_ERROR))
+            showHideView(LAYOUT_ERROR);
     }
 
     /**
@@ -141,27 +141,38 @@ public class RootFrameLayout extends FrameLayout {
         }
     }
 
-    private void inflateLayout(int id) {
-        if(layoutSparseArray.get(id) != null) return;
+    private boolean inflateLayout(int id) {
+        boolean isShow = true;
+        if(layoutSparseArray.get(id) != null) return isShow;
         switch (id) {
             case LAYOUT_NETWORKERROR:
                 if(netWorkErrorVs != null) {
                     View view = netWorkErrorVs.inflate();
                     layoutSparseArray.put(id, view);
+                    isShow = true;
+                } else {
+                    isShow = false;
                 }
                 break;
             case LAYOUT_ERROR:
                 if(errorVs != null) {
                     View view = errorVs.inflate();
                     layoutSparseArray.put(id, view);
+                    isShow = true;
+                } else {
+                    isShow = false;
                 }
                 break;
             case LAYOUT_EMPTYDATA:
                 if(emptyDataVs != null) {
                     View view = emptyDataVs.inflate();
                     layoutSparseArray.put(id, view);
+                    isShow = true;
+                } else {
+                    isShow = false;
                 }
                 break;
         }
+        return isShow;
     }
 }

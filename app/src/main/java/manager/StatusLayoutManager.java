@@ -95,7 +95,6 @@ public class StatusLayoutManager {
         private ViewStub emptyDataVs;
         private ViewStub errorVs;
 
-
         public Builder(Context context) {
             this.context = context;
         }
