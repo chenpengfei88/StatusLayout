@@ -29,11 +29,11 @@
  
  StatusLayoutManager提供了一系列的方法来显示不同布局View之间的切换
  
-  显示loading加载view
-  statusLayoutManager.showLoading();
+  
+  statusLayoutManager.showLoading();  显示loading加载view
   
-  显示你的内容view
-  statusLayoutManager.showContent();
+  
+  statusLayoutManager.showContent();  显示你的内容view
   
   显示空数据view
   statusLayoutManager.showEmptyData();
