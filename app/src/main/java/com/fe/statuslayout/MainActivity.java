@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
-
 import manager.StatusLayoutManager;
 
 public class MainActivity extends AppCompatActivity {
@@ -18,18 +17,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initToolBar();
-        LinearLayout mainLinearLayout = (LinearLayout) findViewById(R.id.main_rl);
 
+        LinearLayout mainLinearLayout = (LinearLayout) findViewById(R.id.main_rl);
         statusLayoutManager = StatusLayoutManager.newBuilder(this)
                 .contentView(R.layout.activity_content)
                 .emptyDataView(R.layout.activity_emptydata)
-                //.errorView(R.layout.activity_error)
+                .errorView(R.layout.activity_error)
                 .loadingView(R.layout.activity_loading)
                 .netWorkErrorView(R.layout.activity_networkerror)
                 .build();
-
         mainLinearLayout.addView(statusLayoutManager.getRootLayout(), 1);
-
         statusLayoutManager.showLoading();
     }
 

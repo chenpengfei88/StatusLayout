@@ -91,14 +91,16 @@ public class RootFrameLayout extends FrameLayout {
      *  显示loading
      */
     public void showLoading() {
-        showHideView(LAYOUT_LOADING);
+        if(layoutSparseArray.get(LAYOUT_LOADING) != null)
+            showHideViewById(LAYOUT_LOADING);
     }
 
     /**
      *  显示内容
      */
     public void showContent() {
-        showHideView(LAYOUT_CONTENT);
+        if(layoutSparseArray.get(LAYOUT_CONTENT) != null)
+            showHideViewById(LAYOUT_CONTENT);
     }
 
     /**
@@ -106,7 +108,7 @@ public class RootFrameLayout extends FrameLayout {
      */
     public void showEmptyData() {
         if(inflateLayout(LAYOUT_EMPTYDATA))
-           showHideView(LAYOUT_EMPTYDATA);
+            showHideViewById(LAYOUT_EMPTYDATA);
     }
 
     /**
@@ -114,7 +116,7 @@ public class RootFrameLayout extends FrameLayout {
      */
     public void showNetWorkError() {
         if(inflateLayout(LAYOUT_NETWORKERROR))
-           showHideView(LAYOUT_NETWORKERROR);
+            showHideViewById(LAYOUT_NETWORKERROR);
     }
 
     /**
@@ -122,22 +124,17 @@ public class RootFrameLayout extends FrameLayout {
      */
     public void showError() {
         if(inflateLayout(LAYOUT_ERROR))
-            showHideView(LAYOUT_ERROR);
+            showHideViewById(LAYOUT_ERROR);
     }
 
     /**
      *  根据ID显示隐藏布局
      * @param id
      */
-    private void showHideView(int id) {
+    private void showHideViewById(int id) {
         for(int i = 0; i < layoutSparseArray.size(); i++) {
-            int key = layoutSparseArray.keyAt(i);
             View valueView = layoutSparseArray.valueAt(i);
-            if(id == key) {
-                valueView.setVisibility(View.VISIBLE);
-            } else {
-                valueView.setVisibility(View.GONE);
-            }
+            valueView.setVisibility(id == layoutSparseArray.keyAt(i) ? View.VISIBLE : View.GONE);
         }
     }
 
