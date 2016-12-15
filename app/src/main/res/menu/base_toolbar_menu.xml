@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_contents"
+        android:title=""
+        app:showAsAction="ifRoom" />
+
+
+    <item
+        android:id="@+id/action_loading"
+        android:title="show loading"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_error"
+        android:title="show error"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_networkError"
+        android:title="show networkEror"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_emptyData"
+        android:title="show emptyData"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_neirong"
+        android:title="show neirong"
+        app:showAsAction="ifRoom" />
+</menu>
