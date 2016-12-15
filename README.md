@@ -11,6 +11,7 @@
         initToolBar();
 
         LinearLayout mainLinearLayout = (LinearLayout) findViewById(R.id.main_rl);
+        
         statusLayoutManager = StatusLayoutManager.newBuilder(this)
                 .contentView(R.layout.activity_content)
                 .emptyDataView(R.layout.activity_emptydata)
@@ -18,6 +19,27 @@
                 .loadingView(R.layout.activity_loading)
                 .netWorkErrorView(R.layout.activity_networkerror)
                 .build();
+                
         mainLinearLayout.addView(statusLayoutManager.getRootLayout(), 1);
+        
         statusLayoutManager.showLoading();
     }
+    
+ 这里用到了builder模式，可以自由的添加你需要的布局View，通过statusLayoutManager.getRootLayout()方法可以得到管理这些布局View的根布局，然后把它添加到你Activity中xml文件的根布局当中。
+ 
+ StatusLayoutManager提供了一系列的方法来显示不同布局View之间的切换
+ 
+  显示loading加载view
+  statusLayoutManager.showLoading();
+  
+  显示你的内容view
+  statusLayoutManager.showContent();
+  
+  显示空数据view
+  statusLayoutManager.showEmptyData();
+  
+  显示error view
+  statusLayoutManager.showError();
+  
+  显示网络异常view
+  statusLayoutManager.showNetWorkError();
