@@ -42,4 +42,4 @@
   statusLayoutManager.showError();  显示error view
   
  
-  statusLayoutManager.showNetWorkError();   显示网络异常view
+   statusLayoutManager.showNetWorkError();   显示网络异常view
