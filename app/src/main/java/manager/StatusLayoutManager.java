@@ -35,12 +35,12 @@ public class StatusLayoutManager {
     }
 
     private void addAllLayoutToRootLayout() {
-        if(this.contentLayoutResId != 0) rootFrameLayout.addLayoutResId(context, contentLayoutResId, RootFrameLayout.LAYOUT_CONTENT);
-        if(this.loadingLayoutResId != 0) rootFrameLayout.addLayoutResId(context, loadingLayoutResId, RootFrameLayout.LAYOUT_LOADING);
+        if(this.contentLayoutResId != 0) rootFrameLayout.addLayoutResId(context, contentLayoutResId, RootFrameLayout.LAYOUT_CONTENT_ID);
+        if(this.loadingLayoutResId != 0) rootFrameLayout.addLayoutResId(context, loadingLayoutResId, RootFrameLayout.LAYOUT_LOADING_ID);
 
-        if(this.emptyDataVs != null) rootFrameLayout.addViewStub(emptyDataVs, RootFrameLayout.LAYOUT_EMPTYDATA);
-        if(this.errorVs != null) rootFrameLayout.addViewStub(errorVs, RootFrameLayout.LAYOUT_ERROR);
-        if(this.netWorkErrorVs != null) rootFrameLayout.addViewStub(netWorkErrorVs, RootFrameLayout.LAYOUT_NETWORKERROR);
+        if(this.emptyDataVs != null) rootFrameLayout.addViewStub(emptyDataVs, RootFrameLayout.LAYOUT_EMPTYDATA_ID);
+        if(this.errorVs != null) rootFrameLayout.addViewStub(errorVs, RootFrameLayout.LAYOUT_ERROR_ID);
+        if(this.netWorkErrorVs != null) rootFrameLayout.addViewStub(netWorkErrorVs, RootFrameLayout.LAYOUT_NETWORK_ERROR_ID);
     }
 
     /**

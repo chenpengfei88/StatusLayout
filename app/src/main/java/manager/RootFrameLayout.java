@@ -16,16 +16,30 @@ import android.widget.FrameLayout;
  */
 public class RootFrameLayout extends FrameLayout {
 
+    /**
+     *  loading 加载id
+     */
+    public static final int LAYOUT_LOADING_ID = 1;
 
-    public static final int LAYOUT_LOADING = 1;
+    /**
+     *  内容id
+     */
+    public static final int LAYOUT_CONTENT_ID = 2;
 
-    public static final int LAYOUT_CONTENT = 2;
+    /**
+     *  异常id
+     */
+    public static final int LAYOUT_ERROR_ID = 3;
 
-    public static final int LAYOUT_ERROR = 3;
+    /**
+     *  网络异常id
+     */
+    public static final int LAYOUT_NETWORK_ERROR_ID = 4;
 
-    public static final int LAYOUT_NETWORKERROR = 4;
-
-    public static final int LAYOUT_EMPTYDATA = 5;
+    /**
+     *  空数据id
+     */
+    public static final int LAYOUT_EMPTYDATA_ID = 5;
 
     /**
      *  存放布局集合
@@ -72,15 +86,15 @@ public class RootFrameLayout extends FrameLayout {
 
     public void addViewStub(ViewStub viewStub, int id) {
         switch (id) {
-            case LAYOUT_NETWORKERROR:
+            case LAYOUT_NETWORK_ERROR_ID:
                 netWorkErrorVs = viewStub;
                 addView(netWorkErrorVs);
                 break;
-            case LAYOUT_ERROR:
+            case LAYOUT_ERROR_ID:
                 errorVs = viewStub;
                 addView(errorVs);
                 break;
-            case LAYOUT_EMPTYDATA:
+            case LAYOUT_EMPTYDATA_ID:
                 emptyDataVs = viewStub;
                 addView(emptyDataVs);
                 break;
@@ -91,40 +105,40 @@ public class RootFrameLayout extends FrameLayout {
      *  显示loading
      */
     public void showLoading() {
-        if(layoutSparseArray.get(LAYOUT_LOADING) != null)
-            showHideViewById(LAYOUT_LOADING);
+        if(layoutSparseArray.get(LAYOUT_LOADING_ID) != null)
+            showHideViewById(LAYOUT_LOADING_ID);
     }
 
     /**
      *  显示内容
      */
     public void showContent() {
-        if(layoutSparseArray.get(LAYOUT_CONTENT) != null)
-            showHideViewById(LAYOUT_CONTENT);
+        if(layoutSparseArray.get(LAYOUT_CONTENT_ID) != null)
+            showHideViewById(LAYOUT_CONTENT_ID);
     }
 
     /**
      *  显示空数据
      */
     public void showEmptyData() {
-        if(inflateLayout(LAYOUT_EMPTYDATA))
-            showHideViewById(LAYOUT_EMPTYDATA);
+        if(inflateLayout(LAYOUT_EMPTYDATA_ID))
+            showHideViewById(LAYOUT_EMPTYDATA_ID);
     }
 
     /**
      *  显示网络异常
      */
     public void showNetWorkError() {
-        if(inflateLayout(LAYOUT_NETWORKERROR))
-            showHideViewById(LAYOUT_NETWORKERROR);
+        if(inflateLayout(LAYOUT_NETWORK_ERROR_ID))
+            showHideViewById(LAYOUT_NETWORK_ERROR_ID);
     }
 
     /**
      *  显示异常
      */
     public void showError() {
-        if(inflateLayout(LAYOUT_ERROR))
-            showHideViewById(LAYOUT_ERROR);
+        if(inflateLayout(LAYOUT_ERROR_ID))
+            showHideViewById(LAYOUT_ERROR_ID);
     }
 
     /**
@@ -142,7 +156,7 @@ public class RootFrameLayout extends FrameLayout {
         boolean isShow = true;
         if(layoutSparseArray.get(id) != null) return isShow;
         switch (id) {
-            case LAYOUT_NETWORKERROR:
+            case LAYOUT_NETWORK_ERROR_ID:
                 if(netWorkErrorVs != null) {
                     View view = netWorkErrorVs.inflate();
                     layoutSparseArray.put(id, view);
@@ -151,7 +165,7 @@ public class RootFrameLayout extends FrameLayout {
                     isShow = false;
                 }
                 break;
-            case LAYOUT_ERROR:
+            case LAYOUT_ERROR_ID:
                 if(errorVs != null) {
                     View view = errorVs.inflate();
                     layoutSparseArray.put(id, view);
@@ -160,7 +174,7 @@ public class RootFrameLayout extends FrameLayout {
                     isShow = false;
                 }
                 break;
-            case LAYOUT_EMPTYDATA:
+            case LAYOUT_EMPTYDATA_ID:
                 if(emptyDataVs != null) {
                     View view = emptyDataVs.inflate();
                     layoutSparseArray.put(id, view);
