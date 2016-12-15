@@ -10,6 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.FrameLayout;
+import android.widget.TextView;
+
+import com.fe.statuslayout.R;
 
 /**
  * Created by chenpengfei on 2016/12/15.
@@ -60,6 +63,9 @@ public class RootFrameLayout extends FrameLayout {
      * 异常布局
      */
     private ViewStub errorVs;
+
+    private OnShowHideListener mOnShowHideListener;
+
 
     public RootFrameLayout(Context context) {
         super(context);
@@ -147,8 +153,18 @@ public class RootFrameLayout extends FrameLayout {
      */
     private void showHideViewById(int id) {
         for(int i = 0; i < layoutSparseArray.size(); i++) {
+            int key = layoutSparseArray.keyAt(i);
             View valueView = layoutSparseArray.valueAt(i);
-            valueView.setVisibility(id == layoutSparseArray.keyAt(i) ? View.VISIBLE : View.GONE);
+            //显示该view
+            if(key == id) {
+                valueView.setVisibility(View.VISIBLE);
+                if(mOnShowHideListener != null) mOnShowHideListener.onShow(valueView, key);
+            } else {
+                if(valueView.getVisibility() != View.GONE) {
+                    valueView.setVisibility(View.GONE);
+                    if(mOnShowHideListener != null) mOnShowHideListener.onHide(valueView, key);
+                }
+            }
         }
     }
 
@@ -186,4 +202,14 @@ public class RootFrameLayout extends FrameLayout {
         }
         return isShow;
     }
+
+    public void setOnShowHideListener(OnShowHideListener onShowHideListener) {
+        mOnShowHideListener = onShowHideListener;
+    }
+
+    interface OnShowHideListener {
+        void onShow(View view, int id);
+        void onHide(View view, int id);
+    }
 }
+

@@ -18,7 +18,8 @@ public class StatusLayoutManager {
     private final int loadingLayoutResId;
     private final int contentLayoutResId;
 
-    private RootFrameLayout rootFrameLayout;
+    private final RootFrameLayout rootFrameLayout;
+    private final OnShowHideViewListener onShowHideViewListener;
 
     public StatusLayoutManager(Builder builder) {
         this.context = builder.context;
@@ -27,13 +28,18 @@ public class StatusLayoutManager {
         this.emptyDataVs = builder.emptyDataVs;
         this.errorVs = builder.errorVs;
         this.contentLayoutResId = builder.contentLayoutResId;
+        this.onShowHideViewListener = builder.onShowHideViewListener;
 
         rootFrameLayout = new RootFrameLayout(this.context);
         rootFrameLayout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
         addAllLayoutToRootLayout();
+        addShowHideListener();
     }
 
+    /**
+     *  所有局部view添加到根布局
+     */
     private void addAllLayoutToRootLayout() {
         if(this.contentLayoutResId != 0) rootFrameLayout.addLayoutResId(context, contentLayoutResId, RootFrameLayout.LAYOUT_CONTENT_ID);
         if(this.loadingLayoutResId != 0) rootFrameLayout.addLayoutResId(context, loadingLayoutResId, RootFrameLayout.LAYOUT_LOADING_ID);
@@ -41,6 +47,20 @@ public class StatusLayoutManager {
         if(this.emptyDataVs != null) rootFrameLayout.addViewStub(emptyDataVs, RootFrameLayout.LAYOUT_EMPTYDATA_ID);
         if(this.errorVs != null) rootFrameLayout.addViewStub(errorVs, RootFrameLayout.LAYOUT_ERROR_ID);
         if(this.netWorkErrorVs != null) rootFrameLayout.addViewStub(netWorkErrorVs, RootFrameLayout.LAYOUT_NETWORK_ERROR_ID);
+    }
+
+    private void addShowHideListener() {
+        rootFrameLayout.setOnShowHideListener(new RootFrameLayout.OnShowHideListener() {
+            @Override
+            public void onShow(View view, int id) {
+                if(onShowHideViewListener != null) onShowHideViewListener.onShowView(view, id);
+            }
+
+            @Override
+            public void onHide(View view, int id) {
+                if(onShowHideViewListener != null) onShowHideViewListener.onHideView(view, id);
+            }
+        });
     }
 
     /**
@@ -94,6 +114,7 @@ public class StatusLayoutManager {
         private ViewStub netWorkErrorVs;
         private ViewStub emptyDataVs;
         private ViewStub errorVs;
+        private OnShowHideViewListener onShowHideViewListener;
 
         public Builder(Context context) {
             this.context = context;
@@ -127,6 +148,11 @@ public class StatusLayoutManager {
             return this;
         }
 
+        public Builder onShowHideViewListener(OnShowHideViewListener onShowHideViewListener) {
+            this.onShowHideViewListener = onShowHideViewListener;
+            return this;
+        }
+
         public StatusLayoutManager build() {
             return new StatusLayoutManager(this);
         }
@@ -135,4 +161,5 @@ public class StatusLayoutManager {
     public static Builder newBuilder(Context context) {
        return new Builder(context);
     }
+
 }

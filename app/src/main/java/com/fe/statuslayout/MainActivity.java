@@ -5,7 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import manager.OnShowHideViewListener;
 import manager.StatusLayoutManager;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,8 +29,19 @@ public class MainActivity extends AppCompatActivity {
                 .errorView(R.layout.activity_error)
                 .loadingView(R.layout.activity_loading)
                 .netWorkErrorView(R.layout.activity_networkerror)
+                .onShowHideViewListener(new OnShowHideViewListener() {
+                    @Override
+                    public void onShowView(View view, int id) {
+                    }
+
+                    @Override
+                    public void onHideView(View view, int id) {
+
+                    }
+                })
                 .build();
         mainLinearLayout.addView(statusLayoutManager.getRootLayout(), 1);
+
         statusLayoutManager.showLoading();
     }
 
