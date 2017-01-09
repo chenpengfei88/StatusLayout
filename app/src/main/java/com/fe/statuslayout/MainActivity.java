@@ -7,8 +7,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-
 import manager.OnShowHideViewListener;
 import manager.StatusLayoutManager;
 
@@ -38,8 +36,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onHideView(View view, int id) {
 
                     }
-                })
-                .build();
+                }).build();
         mainLinearLayout.addView(statusLayoutManager.getRootLayout(), 1);
 
         statusLayoutManager.showLoading();
