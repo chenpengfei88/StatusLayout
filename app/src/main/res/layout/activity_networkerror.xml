@@ -12,5 +12,13 @@
         android:textColor="@android:color/holo_red_dark"
         android:text="my is network error view!"
         android:layout_centerInParent="true"/>
+
+    <Button
+        android:id="@+id/button_try"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textview_content"
+        android:layout_centerHorizontal="true"
+        android:text="重试"/>
     
 </RelativeLayout>

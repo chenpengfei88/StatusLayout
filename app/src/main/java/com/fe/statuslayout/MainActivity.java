@@ -7,6 +7,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+
+import manager.OnRetryListener;
 import manager.OnShowHideViewListener;
 import manager.StatusLayoutManager;
 
@@ -27,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
                 .errorView(R.layout.activity_error)
                 .loadingView(R.layout.activity_loading)
                 .netWorkErrorView(R.layout.activity_networkerror)
+                .retryViewId(R.id.button_try)
                 .onShowHideViewListener(new OnShowHideViewListener() {
                     @Override
                     public void onShowView(View view, int id) {
@@ -34,9 +37,33 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onHideView(View view, int id) {
+                    }
+                }).onRetryListener(new OnRetryListener() {
+                    @Override
+                    public void onRetry() {
+                        statusLayoutManager.showLoading();
+
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    Thread.sleep(1000);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        statusLayoutManager.showContent();
+                                    }
+                                });
+                            }
+                        }).start();
 
                     }
                 }).build();
+
         mainLinearLayout.addView(statusLayoutManager.getRootLayout(), 1);
 
         statusLayoutManager.showLoading();

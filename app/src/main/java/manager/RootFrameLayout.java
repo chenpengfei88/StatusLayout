@@ -8,11 +8,7 @@ import android.util.AttributeSet;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewStub;
 import android.widget.FrameLayout;
-import android.widget.TextView;
-
-import com.fe.statuslayout.R;
 
 /**
  * Created by chenpengfei on 2016/12/15.
@@ -50,21 +46,9 @@ public class RootFrameLayout extends FrameLayout {
     private SparseArray<View> layoutSparseArray = new SparseArray();
 
     /**
-     *  网络布局
+     *  布局管理器
      */
-    private ViewStub netWorkErrorVs;
-
-    /**
-     * 空数据布局
-     */
-    private ViewStub emptyDataVs;
-
-    /**
-     * 异常布局
-     */
-    private ViewStub errorVs;
-
-    private OnShowHideListener mOnShowHideListener;
+    private StatusLayoutManager mStatusLayoutManager;
 
 
     public RootFrameLayout(Context context) {
@@ -84,27 +68,26 @@ public class RootFrameLayout extends FrameLayout {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
-    public void addLayoutResId(Context context, @LayoutRes int layoutResId, int id) {
-        View resView = LayoutInflater.from(context).inflate(layoutResId, null);
-        layoutSparseArray.put(id, resView);
-        addView(resView);
+
+    public void setStatusLayoutManager(StatusLayoutManager statusLayoutManager) {
+        mStatusLayoutManager = statusLayoutManager;
+
+        addAllLayoutToLayout();
     }
 
-    public void addViewStub(ViewStub viewStub, int id) {
-        switch (id) {
-            case LAYOUT_NETWORK_ERROR_ID:
-                netWorkErrorVs = viewStub;
-                addView(netWorkErrorVs);
-                break;
-            case LAYOUT_ERROR_ID:
-                errorVs = viewStub;
-                addView(errorVs);
-                break;
-            case LAYOUT_EMPTYDATA_ID:
-                emptyDataVs = viewStub;
-                addView(emptyDataVs);
-                break;
-        }
+    public void addAllLayoutToLayout() {
+        if(mStatusLayoutManager.contentLayoutResId != 0) addLayoutResId(mStatusLayoutManager.contentLayoutResId, RootFrameLayout.LAYOUT_CONTENT_ID);
+        if(mStatusLayoutManager.loadingLayoutResId != 0) addLayoutResId(mStatusLayoutManager.loadingLayoutResId, RootFrameLayout.LAYOUT_LOADING_ID);
+
+        if(mStatusLayoutManager.emptyDataVs != null) addView(mStatusLayoutManager.emptyDataVs);
+        if(mStatusLayoutManager.errorVs != null) addView(mStatusLayoutManager.errorVs);
+        if(mStatusLayoutManager.netWorkErrorVs != null) addView(mStatusLayoutManager.netWorkErrorVs);
+    }
+
+    public void addLayoutResId(@LayoutRes int layoutResId, int id) {
+        View resView = LayoutInflater.from(mStatusLayoutManager.context).inflate(layoutResId, null);
+        layoutSparseArray.put(id, resView);
+        addView(resView);
     }
 
     /**
@@ -158,11 +141,11 @@ public class RootFrameLayout extends FrameLayout {
             //显示该view
             if(key == id) {
                 valueView.setVisibility(View.VISIBLE);
-                if(mOnShowHideListener != null) mOnShowHideListener.onShow(valueView, key);
+                if(mStatusLayoutManager.onShowHideViewListener != null) mStatusLayoutManager.onShowHideViewListener.onShowView(valueView, key);
             } else {
                 if(valueView.getVisibility() != View.GONE) {
                     valueView.setVisibility(View.GONE);
-                    if(mOnShowHideListener != null) mOnShowHideListener.onHide(valueView, key);
+                    if(mStatusLayoutManager.onShowHideViewListener != null) mStatusLayoutManager.onShowHideViewListener.onHideView(valueView, key);
                 }
             }
         }
@@ -173,8 +156,9 @@ public class RootFrameLayout extends FrameLayout {
         if(layoutSparseArray.get(id) != null) return isShow;
         switch (id) {
             case LAYOUT_NETWORK_ERROR_ID:
-                if(netWorkErrorVs != null) {
-                    View view = netWorkErrorVs.inflate();
+                if(mStatusLayoutManager.netWorkErrorVs != null) {
+                    View view = mStatusLayoutManager.netWorkErrorVs.inflate();
+                    retryLoad(view, mStatusLayoutManager.netWorkErrorRetryViewId);
                     layoutSparseArray.put(id, view);
                     isShow = true;
                 } else {
@@ -182,8 +166,9 @@ public class RootFrameLayout extends FrameLayout {
                 }
                 break;
             case LAYOUT_ERROR_ID:
-                if(errorVs != null) {
-                    View view = errorVs.inflate();
+                if(mStatusLayoutManager.errorVs != null) {
+                    View view = mStatusLayoutManager.errorVs.inflate();
+                    retryLoad(view, mStatusLayoutManager.errorRetryViewId);
                     layoutSparseArray.put(id, view);
                     isShow = true;
                 } else {
@@ -191,8 +176,9 @@ public class RootFrameLayout extends FrameLayout {
                 }
                 break;
             case LAYOUT_EMPTYDATA_ID:
-                if(emptyDataVs != null) {
-                    View view = emptyDataVs.inflate();
+                if(mStatusLayoutManager.emptyDataVs != null) {
+                    View view = mStatusLayoutManager.emptyDataVs.inflate();
+                    retryLoad(view, mStatusLayoutManager.emptyDataRetryViewId);
                     layoutSparseArray.put(id, view);
                     isShow = true;
                 } else {
@@ -203,13 +189,18 @@ public class RootFrameLayout extends FrameLayout {
         return isShow;
     }
 
-    public void setOnShowHideListener(OnShowHideListener onShowHideListener) {
-        mOnShowHideListener = onShowHideListener;
-    }
-
-    interface OnShowHideListener {
-        void onShow(View view, int id);
-        void onHide(View view, int id);
+    /**
+     *  重试加载
+     */
+    public void retryLoad(View view, int id) {
+        View retryView = view.findViewById(mStatusLayoutManager.retryViewId != 0 ? mStatusLayoutManager.retryViewId : id);
+        if(retryView == null || mStatusLayoutManager.onRetryListener == null) return;
+        retryView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mStatusLayoutManager.onRetryListener.onRetry();
+            }
+        });
     }
 }
 

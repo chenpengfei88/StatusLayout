@@ -11,57 +11,41 @@ import android.view.ViewStub;
  */
 public class StatusLayoutManager {
 
-    private final Context context;
-    private final ViewStub netWorkErrorVs;
-    private final ViewStub emptyDataVs;
-    private final ViewStub errorVs;
-    private final int loadingLayoutResId;
-    private final int contentLayoutResId;
+     final Context context;
+     final ViewStub netWorkErrorVs;
+     final int netWorkErrorRetryViewId;
+     final ViewStub emptyDataVs;
+     final int emptyDataRetryViewId;
+     final ViewStub errorVs;
+     final int errorRetryViewId;
+     final int loadingLayoutResId;
+     final int contentLayoutResId;
+     final int retryViewId;
 
-    private final RootFrameLayout rootFrameLayout;
-    private final OnShowHideViewListener onShowHideViewListener;
+     final RootFrameLayout rootFrameLayout;
+     final OnShowHideViewListener onShowHideViewListener;
+     final OnRetryListener onRetryListener;
 
     public StatusLayoutManager(Builder builder) {
         this.context = builder.context;
         this.loadingLayoutResId = builder.loadingLayoutResId;
         this.netWorkErrorVs = builder.netWorkErrorVs;
+        this.netWorkErrorRetryViewId = builder.netWorkErrorRetryViewId;
         this.emptyDataVs = builder.emptyDataVs;
+        this.emptyDataRetryViewId = builder.emptyDataRetryViewId;
         this.errorVs = builder.errorVs;
+        this.errorRetryViewId = builder.errorRetryViewId;
         this.contentLayoutResId = builder.contentLayoutResId;
         this.onShowHideViewListener = builder.onShowHideViewListener;
+        this.retryViewId = builder.retryViewId;
+        this.onRetryListener = builder.onRetryListener;
 
         rootFrameLayout = new RootFrameLayout(this.context);
         rootFrameLayout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
-        addAllLayoutToRootLayout();
-        addShowHideListener();
+        rootFrameLayout.setStatusLayoutManager(this);
     }
 
-    /**
-     *  所有局部view添加到根布局
-     */
-    private void addAllLayoutToRootLayout() {
-        if(this.contentLayoutResId != 0) rootFrameLayout.addLayoutResId(context, contentLayoutResId, RootFrameLayout.LAYOUT_CONTENT_ID);
-        if(this.loadingLayoutResId != 0) rootFrameLayout.addLayoutResId(context, loadingLayoutResId, RootFrameLayout.LAYOUT_LOADING_ID);
-
-        if(this.emptyDataVs != null) rootFrameLayout.addViewStub(emptyDataVs, RootFrameLayout.LAYOUT_EMPTYDATA_ID);
-        if(this.errorVs != null) rootFrameLayout.addViewStub(errorVs, RootFrameLayout.LAYOUT_ERROR_ID);
-        if(this.netWorkErrorVs != null) rootFrameLayout.addViewStub(netWorkErrorVs, RootFrameLayout.LAYOUT_NETWORK_ERROR_ID);
-    }
-
-    private void addShowHideListener() {
-        rootFrameLayout.setOnShowHideListener(new RootFrameLayout.OnShowHideListener() {
-            @Override
-            public void onShow(View view, int id) {
-                if(onShowHideViewListener != null) onShowHideViewListener.onShowView(view, id);
-            }
-
-            @Override
-            public void onHide(View view, int id) {
-                if(onShowHideViewListener != null) onShowHideViewListener.onHideView(view, id);
-            }
-        });
-    }
 
     /**
      *  显示loading
@@ -112,9 +96,14 @@ public class StatusLayoutManager {
         private int loadingLayoutResId;
         private int contentLayoutResId;
         private ViewStub netWorkErrorVs;
+        private int netWorkErrorRetryViewId;
         private ViewStub emptyDataVs;
+        private int emptyDataRetryViewId;
         private ViewStub errorVs;
+        private int errorRetryViewId;
+        private int retryViewId;
         private OnShowHideViewListener onShowHideViewListener;
+        private OnRetryListener onRetryListener;
 
         public Builder(Context context) {
             this.context = context;
@@ -148,8 +137,33 @@ public class StatusLayoutManager {
             return this;
         }
 
+        public Builder netWorkErrorRetryViewId(int netWorkErrorRetryViewId) {
+            this.netWorkErrorRetryViewId = netWorkErrorRetryViewId;
+            return this;
+        }
+
+        public Builder emptyDataRetryViewId(int emptyDataRetryViewId) {
+            this.emptyDataRetryViewId = emptyDataRetryViewId;
+            return this;
+        }
+
+        public Builder errorRetryViewId(int errorRetryViewId) {
+            this.errorRetryViewId = errorRetryViewId;
+            return this;
+        }
+
+        public Builder retryViewId(int retryViewId) {
+            this.retryViewId = retryViewId;
+            return this;
+        }
+
         public Builder onShowHideViewListener(OnShowHideViewListener onShowHideViewListener) {
             this.onShowHideViewListener = onShowHideViewListener;
+            return this;
+        }
+
+        public Builder onRetryListener(OnRetryListener onRetryListener) {
+            this.onRetryListener = onRetryListener;
             return this;
         }
 
