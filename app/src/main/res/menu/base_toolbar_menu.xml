@@ -29,7 +29,7 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/action_neirong"
-        android:title="show neirong"
+        android:id="@+id/action_content"
+        android:title="show content"
         app:showAsAction="ifRoom" />
 </menu>
