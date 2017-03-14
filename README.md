@@ -12,6 +12,7 @@
    
      @Override
     protected void onCreate(Bundle savedInstanceState) {
+    
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
 
@@ -66,7 +67,8 @@
     
       protected abstract int getContentView();
       
-      
+     MainActivity继承BaseActivity，重写getContentView方法。
+     
      public class MainActivity extends BaseActivity {
 
         @Override
@@ -76,7 +78,7 @@
 
      }
      
-     MainActivity继承BaseActivity，重写getContentView方法。
+   
     
  这里用到了builder模式，可以自由的添加你需要的布局View，通过statusLayoutManager.getRootLayout()方法可以得到管理这些布局View的根布局，然后把它添加到你Activity中xml文件的根布局当中。
  
