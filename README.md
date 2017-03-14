@@ -88,6 +88,7 @@
    
    
    //抽象方法，得到内容布局
+   
    protected abstract int getContentView();
    
    
