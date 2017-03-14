@@ -85,16 +85,18 @@
  
    statusLayoutManager.showNetWorkError();   显示网络异常view
    
+   //抽象方法，得到内容布局
+   protected abstract int getContentView();
    
-    protected abstract int getContentView();
+   
       
-     MainActivity继承BaseActivity，重写getContentView方法。
+   MainActivity继承BaseActivity，重写getContentView方法。
      
-     public class MainActivity extends BaseActivity {
+   public class MainActivity extends BaseActivity {
 
-        @Override
-        protected int getContentView() {
-            return R.layout.activity_content;
-        }
+      @Override
+      protected int getContentView() {
+          return R.layout.activity_content;
+      }
 
-     }
+   }
