@@ -1,4 +1,4 @@
-package manager;
+package com.free.statuslayout.manager;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;
@@ -21,6 +21,8 @@ public class StatusLayoutManager {
      final int loadingLayoutResId;
      final int contentLayoutResId;
      final int retryViewId;
+     final int emptyDataIconImageId;
+     final int emptyDataTextTipId;
 
      final RootFrameLayout rootFrameLayout;
      final OnShowHideViewListener onShowHideViewListener;
@@ -39,6 +41,8 @@ public class StatusLayoutManager {
         this.onShowHideViewListener = builder.onShowHideViewListener;
         this.retryViewId = builder.retryViewId;
         this.onRetryListener = builder.onRetryListener;
+        this.emptyDataIconImageId = builder.emptyDataIconImageId;
+        this.emptyDataTextTipId = builder.emptyDataTextTipId;
 
         rootFrameLayout = new RootFrameLayout(this.context);
         rootFrameLayout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
@@ -64,8 +68,12 @@ public class StatusLayoutManager {
     /**
      *  显示空数据
      */
+    public void showEmptyData(int iconImage, String textTip) {
+        rootFrameLayout.showEmptyData(iconImage, textTip);
+    }
+
     public void showEmptyData() {
-        rootFrameLayout.showEmptyData();
+        showEmptyData(0, "");
     }
 
     /**
@@ -102,6 +110,8 @@ public class StatusLayoutManager {
         private ViewStub errorVs;
         private int errorRetryViewId;
         private int retryViewId;
+        private int emptyDataIconImageId;
+        private int emptyDataTextTipId;
         private OnShowHideViewListener onShowHideViewListener;
         private OnRetryListener onRetryListener;
 
@@ -154,6 +164,16 @@ public class StatusLayoutManager {
 
         public Builder retryViewId(int retryViewId) {
             this.retryViewId = retryViewId;
+            return this;
+        }
+
+        public Builder emptyDataIconImageId(int emptyDataIconImageId) {
+            this.emptyDataIconImageId = emptyDataIconImageId;
+            return this;
+        }
+
+        public Builder emptyDataTextTipId(int emptyDataTextTipId) {
+            this.emptyDataTextTipId = emptyDataTextTipId;
             return this;
         }
 

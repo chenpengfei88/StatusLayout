@@ -1,14 +1,17 @@
-package manager;
+package com.free.statuslayout.manager;
 
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
 import android.support.annotation.LayoutRes;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 /**
  * Created by chenpengfei on 2016/12/15.
@@ -109,9 +112,25 @@ public class RootFrameLayout extends FrameLayout {
     /**
      *  显示空数据
      */
-    public void showEmptyData() {
-        if(inflateLayout(LAYOUT_EMPTYDATA_ID))
+    public void showEmptyData(int iconImage, String textTip) {
+        if (inflateLayout(LAYOUT_EMPTYDATA_ID)) {
             showHideViewById(LAYOUT_EMPTYDATA_ID);
+            emptyDataViewAddData(iconImage, textTip);
+        }
+    }
+
+    private void emptyDataViewAddData(int iconImage, String textTip) {
+        if (iconImage == 0 && TextUtils.isEmpty(textTip)) return;
+        View emptyDataView = layoutSparseArray.get(LAYOUT_EMPTYDATA_ID);
+        View iconImageView = emptyDataView.findViewById(mStatusLayoutManager.emptyDataIconImageId);
+        View textView = emptyDataView.findViewById(mStatusLayoutManager.emptyDataTextTipId);
+        if (iconImageView != null && iconImageView instanceof ImageView) {
+            ((ImageView) iconImageView).setImageResource(iconImage);
+        }
+
+        if (textView != null && textView instanceof TextView) {
+            ((TextView) textView).setText(textTip);
+        }
     }
 
     /**
@@ -156,7 +175,7 @@ public class RootFrameLayout extends FrameLayout {
         if(layoutSparseArray.get(id) != null) return isShow;
         switch (id) {
             case LAYOUT_NETWORK_ERROR_ID:
-                if(mStatusLayoutManager.netWorkErrorVs != null) {
+                if (mStatusLayoutManager.netWorkErrorVs != null) {
                     View view = mStatusLayoutManager.netWorkErrorVs.inflate();
                     retryLoad(view, mStatusLayoutManager.netWorkErrorRetryViewId);
                     layoutSparseArray.put(id, view);
@@ -166,7 +185,7 @@ public class RootFrameLayout extends FrameLayout {
                 }
                 break;
             case LAYOUT_ERROR_ID:
-                if(mStatusLayoutManager.errorVs != null) {
+                if (mStatusLayoutManager.errorVs != null) {
                     View view = mStatusLayoutManager.errorVs.inflate();
                     retryLoad(view, mStatusLayoutManager.errorRetryViewId);
                     layoutSparseArray.put(id, view);
@@ -176,7 +195,7 @@ public class RootFrameLayout extends FrameLayout {
                 }
                 break;
             case LAYOUT_EMPTYDATA_ID:
-                if(mStatusLayoutManager.emptyDataVs != null) {
+                if (mStatusLayoutManager.emptyDataVs != null) {
                     View view = mStatusLayoutManager.emptyDataVs.inflate();
                     retryLoad(view, mStatusLayoutManager.emptyDataRetryViewId);
                     layoutSparseArray.put(id, view);

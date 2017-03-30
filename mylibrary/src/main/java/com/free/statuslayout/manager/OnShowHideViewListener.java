@@ -1,4 +1,4 @@
-package manager;
+package com.free.statuslayout.manager;
 
 import android.view.View;
 

@@ -1,4 +1,4 @@
-package manager;
+package com.free.statuslayout.manager;
 
 /**
  * Created by chenpengfei on 2017/2/6.

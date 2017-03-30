@@ -7,9 +7,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
-import manager.OnRetryListener;
-import manager.OnShowHideViewListener;
-import manager.StatusLayoutManager;
+import com.free.statuslayout.manager.OnRetryListener;
+import com.free.statuslayout.manager.OnShowHideViewListener;
+import com.free.statuslayout.manager.StatusLayoutManager;
 
 /**
  * Created by chenpengfei on 2017/3/14.
@@ -33,6 +33,8 @@ public abstract class BaseActivity extends AppCompatActivity {
                 .loadingView(R.layout.activity_loading)
                 .netWorkErrorView(R.layout.activity_networkerror)
                 .retryViewId(R.id.button_try)
+                .emptyDataIconImageId(R.id.icon_imageview)
+                .emptyDataTextTipId(R.id.textview_content)
                 .onShowHideViewListener(new OnShowHideViewListener() {
                     @Override
                     public void onShowView(View view, int id) {
@@ -87,7 +89,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                     statusLayoutManager.showContent();
                 }
                 if(item.getItemId() == R.id.action_emptyData) {
-                    statusLayoutManager.showEmptyData();
+                    statusLayoutManager.showEmptyData(R.mipmap.empty_nodata, "暂时没有数据");
                 }
                 if(item.getItemId() == R.id.action_error) {
                     statusLayoutManager.showError();
