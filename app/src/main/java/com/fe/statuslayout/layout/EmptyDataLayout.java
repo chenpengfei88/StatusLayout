@@ -1,8 +1,9 @@
-package com.fe.statuslayout;
+package com.fe.statuslayout.layout;
 
 import android.content.Context;
 import android.widget.Button;
 
+import com.fe.statuslayout.R;
 import com.free.statuslayout.manager.AbsLayout;
 
 /**

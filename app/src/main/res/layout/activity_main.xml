@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/main_rl">
+
+    <Button
+        android:id="@+id/button_one_step"
+        style="@style/main_button_style"
+        android:text="第一步"/>
+
+    <Button
+        android:id="@+id/button_two_step"
+        style="@style/main_button_style"
+        android:text="第二步"/>
+
+    <Button
+        android:id="@+id/button_three_step"
+        style="@style/main_button_style"
+        android:text="第三步"/>
+
+    <Button
+        android:id="@+id/button_four_step"
+        style="@style/main_button_style"
+        android:text="第四步"/>
+
+</LinearLayout>

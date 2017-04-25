@@ -3,13 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textview_content"
-        android:layout_width="wrap_content"
+    <ProgressBar
+        android:id="@+id/progress_bar1"
+        style="@android:style/Widget.ProgressBar.Inverse"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
-        android:textColor="@android:color/holo_red_dark"
-        android:text="my is loading view!"
+        android:progress="50"
+        android:paddingTop="4dp"
         android:layout_centerInParent="true"/>
 
 </RelativeLayout>
