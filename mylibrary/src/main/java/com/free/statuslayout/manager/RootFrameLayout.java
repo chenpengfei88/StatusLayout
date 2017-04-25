@@ -75,10 +75,10 @@ public class RootFrameLayout extends FrameLayout {
     public void setStatusLayoutManager(StatusLayoutManager statusLayoutManager) {
         mStatusLayoutManager = statusLayoutManager;
 
-        addAllLayoutToLayout();
+        addAllLayoutToRootLayout();
     }
 
-    public void addAllLayoutToLayout() {
+    private void addAllLayoutToRootLayout() {
         if (mStatusLayoutManager.contentLayoutResId != 0) addLayoutResId(mStatusLayoutManager.contentLayoutResId, RootFrameLayout.LAYOUT_CONTENT_ID);
         if (mStatusLayoutManager.loadingLayoutResId != 0) addLayoutResId(mStatusLayoutManager.loadingLayoutResId, RootFrameLayout.LAYOUT_LOADING_ID);
 
@@ -87,7 +87,7 @@ public class RootFrameLayout extends FrameLayout {
         if (mStatusLayoutManager.netWorkErrorVs != null) addView(mStatusLayoutManager.netWorkErrorVs);
     }
 
-    public void addLayoutResId(@LayoutRes int layoutResId, int id) {
+    private void addLayoutResId(@LayoutRes int layoutResId, int id) {
         View resView = LayoutInflater.from(mStatusLayoutManager.context).inflate(layoutResId, null);
         layoutSparseArray.put(id, resView);
         addView(resView);
@@ -133,6 +133,16 @@ public class RootFrameLayout extends FrameLayout {
         }
     }
 
+    public void showLayoutEmptyData(Object... objects) {
+        if (inflateLayout(LAYOUT_EMPTYDATA_ID)) {
+            showHideViewById(LAYOUT_EMPTYDATA_ID);
+
+            AbsLayout emptyDataLayout = mStatusLayoutManager.emptyDataLayout;
+            if (emptyDataLayout != null)
+                emptyDataLayout.setData(objects);
+        }
+    }
+
     /**
      *  显示网络异常
      */
@@ -162,6 +172,16 @@ public class RootFrameLayout extends FrameLayout {
 
         if (textView != null && textView instanceof TextView) {
             ((TextView) textView).setText(textTip);
+        }
+    }
+
+    public void showLayoutError(Object... objects) {
+        if (inflateLayout(LAYOUT_ERROR_ID)) {
+            showHideViewById(LAYOUT_ERROR_ID);
+
+            AbsLayout errorLayout = mStatusLayoutManager.errorLayout;
+            if (errorLayout != null)
+                errorLayout.setData(objects);
         }
     }
 
@@ -203,6 +223,7 @@ public class RootFrameLayout extends FrameLayout {
             case LAYOUT_ERROR_ID:
                 if (mStatusLayoutManager.errorVs != null) {
                     View view = mStatusLayoutManager.errorVs.inflate();
+                    if (mStatusLayoutManager.errorLayout != null) mStatusLayoutManager.errorLayout.setView(view);
                     retryLoad(view, mStatusLayoutManager.errorRetryViewId);
                     layoutSparseArray.put(id, view);
                     isShow = true;
@@ -213,6 +234,7 @@ public class RootFrameLayout extends FrameLayout {
             case LAYOUT_EMPTYDATA_ID:
                 if (mStatusLayoutManager.emptyDataVs != null) {
                     View view = mStatusLayoutManager.emptyDataVs.inflate();
+                    if (mStatusLayoutManager.emptyDataLayout != null) mStatusLayoutManager.emptyDataLayout.setView(view);
                     retryLoad(view, mStatusLayoutManager.emptyDataRetryViewId);
                     layoutSparseArray.put(id, view);
                     isShow = true;
@@ -227,7 +249,7 @@ public class RootFrameLayout extends FrameLayout {
     /**
      *  重试加载
      */
-    public void retryLoad(View view, int id) {
+    private void retryLoad(View view, int id) {
         View retryView = view.findViewById(mStatusLayoutManager.retryViewId != 0 ? mStatusLayoutManager.retryViewId : id);
         if (retryView == null || mStatusLayoutManager.onRetryListener == null) return;
         retryView.setOnClickListener(new OnClickListener() {

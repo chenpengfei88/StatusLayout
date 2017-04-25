@@ -28,8 +28,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         LinearLayout mainLinearLayout = (LinearLayout) findViewById(R.id.main_rl);
         statusLayoutManager = StatusLayoutManager.newBuilder(this)
                 .contentView(getContentView())
-                .emptyDataView(R.layout.activity_emptydata)
-                .errorView(R.layout.activity_error)
+                //.emptyDataView(R.layout.activity_emptydata)
+              //  .errorView(R.layout.activity_error)
+                .errorLayout(new ErrorLayout(this))
+                .emptyDataLayout(new EmptyDataLayout(this))
                 .loadingView(R.layout.activity_loading)
                 .netWorkErrorView(R.layout.activity_networkerror)
                 .retryViewId(R.id.button_try)
@@ -91,10 +93,10 @@ public abstract class BaseActivity extends AppCompatActivity {
                     statusLayoutManager.showContent();
                 }
                 if(item.getItemId() == R.id.action_emptyData) {
-                    statusLayoutManager.showEmptyData(R.mipmap.empty_nodata, "暂时没有数据");
+                    statusLayoutManager.showLayoutEmptyData("暂时没有数据Layout");
                 }
                 if(item.getItemId() == R.id.action_error) {
-                    statusLayoutManager.showError(R.mipmap.empty_nodata, "服务器异常");
+                    statusLayoutManager.showLayoutError("服务器异常");
                 }
                 if(item.getItemId() == R.id.action_networkError) {
                     statusLayoutManager.showNetWorkError();

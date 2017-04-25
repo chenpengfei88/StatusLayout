@@ -25,6 +25,8 @@ public class StatusLayoutManager {
      final int emptyDataTextTipId;
     final int errorIconImageId;
     final int errorTextTipId;
+    final AbsLayout errorLayout;
+    final AbsLayout emptyDataLayout;
 
      final RootFrameLayout rootFrameLayout;
      final OnShowHideViewListener onShowHideViewListener;
@@ -47,6 +49,8 @@ public class StatusLayoutManager {
         this.emptyDataTextTipId = builder.emptyDataTextTipId;
         this.errorIconImageId = builder.errorIconImageId;
         this.errorTextTipId = builder.errorTextTipId;
+        this.errorLayout = builder.errorLayout;
+        this.emptyDataLayout = builder.emptyDataLayout;
 
         rootFrameLayout = new RootFrameLayout(this.context);
         rootFrameLayout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
@@ -80,6 +84,10 @@ public class StatusLayoutManager {
         showEmptyData(0, "");
     }
 
+    public void showLayoutEmptyData(Object... objects) {
+        rootFrameLayout.showLayoutEmptyData(objects);
+    }
+
     /**
      *  显示网络异常
      */
@@ -96,6 +104,10 @@ public class StatusLayoutManager {
 
     public void showError() {
         showError(0, "");
+    }
+
+    public void showLayoutError(Object... objects) {
+        rootFrameLayout.showLayoutError(objects);
     }
 
     /**
@@ -122,6 +134,8 @@ public class StatusLayoutManager {
         private int emptyDataTextTipId;
         private int errorIconImageId;
         private int errorTextTipId;
+        private AbsLayout errorLayout;
+        private AbsLayout emptyDataLayout;
         private OnShowHideViewListener onShowHideViewListener;
         private OnRetryListener onRetryListener;
 
@@ -154,6 +168,18 @@ public class StatusLayoutManager {
 
         public Builder contentView(@LayoutRes int contentLayoutResId) {
             this.contentLayoutResId = contentLayoutResId;
+            return this;
+        }
+
+        public Builder errorLayout(AbsLayout errorLayout) {
+            this.errorLayout = errorLayout;
+            this.errorVs = errorLayout.getLayoutVs();
+            return this;
+        }
+
+        public Builder emptyDataLayout(AbsLayout emptyDataLayout) {
+            this.emptyDataLayout = emptyDataLayout;
+            this.emptyDataVs = emptyDataLayout.getLayoutVs();
             return this;
         }
 
