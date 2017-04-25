@@ -78,9 +78,11 @@
   
   
   statusLayoutManager.showEmptyData();  显示空数据view
+  statusLayoutManager.showEmptyData(R.mipmap.empty_nodata, "暂时没有数据");
   
   
   statusLayoutManager.showError();  显示error view
+  statusLayoutManager.showError(R.mipmap.empty_nodata, "服务器异常");
   
  
    statusLayoutManager.showNetWorkError();   显示网络异常view
