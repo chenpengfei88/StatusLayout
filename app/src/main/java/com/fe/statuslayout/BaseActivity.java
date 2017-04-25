@@ -35,6 +35,8 @@ public abstract class BaseActivity extends AppCompatActivity {
                 .retryViewId(R.id.button_try)
                 .emptyDataIconImageId(R.id.icon_imageview)
                 .emptyDataTextTipId(R.id.textview_content)
+                .errorIconImageId(R.id.icon_imageview)
+                .errorTextTipId(R.id.textview_content)
                 .onShowHideViewListener(new OnShowHideViewListener() {
                     @Override
                     public void onShowView(View view, int id) {
@@ -92,7 +94,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                     statusLayoutManager.showEmptyData(R.mipmap.empty_nodata, "暂时没有数据");
                 }
                 if(item.getItemId() == R.id.action_error) {
-                    statusLayoutManager.showError();
+                    statusLayoutManager.showError(R.mipmap.empty_nodata, "服务器异常");
                 }
                 if(item.getItemId() == R.id.action_networkError) {
                     statusLayoutManager.showNetWorkError();

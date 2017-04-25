@@ -23,6 +23,8 @@ public class StatusLayoutManager {
      final int retryViewId;
      final int emptyDataIconImageId;
      final int emptyDataTextTipId;
+    final int errorIconImageId;
+    final int errorTextTipId;
 
      final RootFrameLayout rootFrameLayout;
      final OnShowHideViewListener onShowHideViewListener;
@@ -43,6 +45,8 @@ public class StatusLayoutManager {
         this.onRetryListener = builder.onRetryListener;
         this.emptyDataIconImageId = builder.emptyDataIconImageId;
         this.emptyDataTextTipId = builder.emptyDataTextTipId;
+        this.errorIconImageId = builder.errorIconImageId;
+        this.errorTextTipId = builder.errorTextTipId;
 
         rootFrameLayout = new RootFrameLayout(this.context);
         rootFrameLayout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
@@ -86,8 +90,12 @@ public class StatusLayoutManager {
     /**
      *  显示异常
      */
+    public void showError(int iconImage, String textTip) {
+        rootFrameLayout.showError(iconImage, textTip);
+    }
+
     public void showError() {
-        rootFrameLayout.showError();
+        showError(0, "");
     }
 
     /**
@@ -112,6 +120,8 @@ public class StatusLayoutManager {
         private int retryViewId;
         private int emptyDataIconImageId;
         private int emptyDataTextTipId;
+        private int errorIconImageId;
+        private int errorTextTipId;
         private OnShowHideViewListener onShowHideViewListener;
         private OnRetryListener onRetryListener;
 
@@ -174,6 +184,16 @@ public class StatusLayoutManager {
 
         public Builder emptyDataTextTipId(int emptyDataTextTipId) {
             this.emptyDataTextTipId = emptyDataTextTipId;
+            return this;
+        }
+
+        public Builder errorIconImageId(int errorIconImageId) {
+            this.errorIconImageId = errorIconImageId;
+            return this;
+        }
+
+        public Builder errorTextTipId(int errorTextTipId) {
+            this.errorTextTipId = errorTextTipId;
             return this;
         }
 

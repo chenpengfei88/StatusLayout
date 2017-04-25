@@ -4,14 +4,22 @@
     android:layout_height="match_parent"
     android:background="@android:color/holo_red_dark">
 
+    <ImageView
+        android:id="@+id/icon_imageview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"/>
+
     <TextView
         android:id="@+id/textview_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="24sp"
         android:textColor="@android:color/white"
-        android:text="my is error view!"
-        android:layout_centerInParent="true"/>
+        android:layout_below="@id/icon_imageview"
+        android:layout_centerHorizontal="true"
+        android:text="my is emptydata view!"
+        />
 
     <Button
         android:id="@+id/button_try"
@@ -20,5 +28,5 @@
         android:layout_below="@id/textview_content"
         android:layout_centerHorizontal="true"
         android:text="重试"/>
-    
+
 </RelativeLayout>
