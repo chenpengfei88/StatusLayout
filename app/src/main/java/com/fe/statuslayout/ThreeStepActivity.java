@@ -32,10 +32,9 @@ public class ThreeStepActivity extends BaseActivity {
                 .errorRetryViewId(R.id.button_retry)
                 .netWorkErrorRetryViewId(R.id.button_try)
                 .emptyDataRetryViewId(R.id.button_retry)
-                .netWorkErrorRetryViewId(R.layout.activity_networkerror)
                 .onRetryListener(new OnRetryListener() {
                     @Override
-                    public void onRetry() {
+                        public void onRetry() {
                         statusLayoutManager.showLoading();
 
                         new Thread(new Runnable() {
