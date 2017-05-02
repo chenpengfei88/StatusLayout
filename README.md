@@ -1,7 +1,19 @@
-# StatusLayout
-让你的布局飞起来
+# StatusLayout （让你的布局飞起来）
+### 版本 V1.0
 
  ![image](https://github.com/chenpengfei88/StatusLayout/blob/master/app/src/main/res/drawable/hao.gif)
+ 
+#### 引用
+ ```
+allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+ 
+compile 'com.github.chenpengfei88:StatusLayout:1.0'
+ ```
 
 
 在我们平时的项目开发当中一般都会有不同的布局View之间的切换，比如：loadingView， contentView， errorView等等，本项目就是用一个管理类来把这些布局view管理封装起来，使view之间的切换更加简洁方便。
