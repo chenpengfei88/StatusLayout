@@ -16,8 +16,6 @@ compile 'com.github.chenpengfei88:StatusLayout:1.0'
  ```
 
 
-在我们平时的项目开发当中一般都会有不同的布局View之间的切换，比如：loadingView， contentView， errorView等等，本项目就是用一个管理类来把这些布局view管理封装起来，使view之间的切换更加简洁方便。
-
 #### 使用
  ```
  StatusLayoutManager statusLayoutManager = StatusLayoutManager.newBuilder(this)
@@ -70,41 +68,11 @@ compile 'com.github.chenpengfei88:StatusLayout:1.0'
  
   ```
    statusLayoutManager.showLoading();  显示loading加载view
-  
-  
-  statusLayoutManager.showContent();  显示你的内容view
-  
-  
-  statusLayoutManager.showEmptyData();  显示空数据view
-  
-  statusLayoutManager.showEmptyData(R.mipmap.empty_nodata, "暂时没有数据");
-  
-  
-  statusLayoutManager.showError();  显示error view
-  
-  statusLayoutManager.showError(R.mipmap.empty_nodata, "服务器异常");
-  
- 
+   statusLayoutManager.showContent();  显示你的内容view
+   statusLayoutManager.showEmptyData();  显示空数据view
+   statusLayoutManager.showEmptyData(R.mipmap.empty_nodata, "暂时没有数据");
+   statusLayoutManager.showError();  显示error view
+   statusLayoutManager.showError(R.mipmap.empty_nodata, "服务器异常");
    statusLayoutManager.showNetWorkError();   显示网络异常view
    
-   ```
- 
-   
-   
-   //抽象方法，得到内容布局
-   
-   protected abstract int getContentView();
-   
-   
-   
-      
-   MainActivity继承BaseActivity，重写getContentView方法。
-     
-   public class MainActivity extends BaseActivity {
-
-      @Override
-      protected int getContentView() {
-          return R.layout.activity_content;
-      }
-
-   }
+  ```
