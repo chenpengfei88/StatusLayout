@@ -76,3 +76,6 @@ compile 'com.github.chenpengfei88:StatusLayout:1.0'
    statusLayoutManager.showNetWorkError();   显示网络异常view
    
   ```
+  
+  #### 源码逻辑解析
+http://www.jianshu.com/p/9d53893b3eda
